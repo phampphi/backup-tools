@@ -1,0 +1,34 @@
+{
+  "name": "backup-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config dist/index.js",
+    "build": "webpack --mode=development --config webpack.config.js",
+    "build:prod": "webpack --mode=production --config webpack.config.js",
+    "dev": "npm run build && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phampphi/backup-tools.git"
+  },
+  "author": "pham.pphi@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phampphi/backup-tools/issues"
+  },
+  "homepage": "https://github.com/phampphi/backup-tools#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^6.9.4",
+    "dayjs": "^1.11.7",
+    "dot-env": "^0.0.1",
+    "mysqldump": "^3.2.0",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {
+    "request": "^2.88.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
