@@ -1,9 +1,9 @@
-import cron from 'node-cron';
-import mysqldump from 'mysqldump';
-import { Storage, IdempotencyStrategy } from '@google-cloud/storage';
-import fs from 'fs';
-import zlib from 'zlib';
+import { IdempotencyStrategy, Storage } from '@google-cloud/storage';
 import dayjs from 'dayjs';
+import fs from 'fs';
+import mysqldump from 'mysqldump';
+import cron from 'node-cron';
+import zlib from 'zlib';
 
 const BUCKETNAME = process.env.BUCKETNAME;
 
@@ -41,12 +41,6 @@ const storage = new Storage({
     keyFilename: "gcp-storage-upload.json",
     retryOptions: {
         autoRetry: true,
-
-    }
-});
-const uploadGCP = async (filePath, fileName) => {
-    const options = {
-        destination: fileName,
         // The multiplier to increase the delay time between the completion of failed requests, and the initiation of the subsequent retrying request
         retryDelayMultiplier: 3,
         // The total time between an initial request getting sent and its timeout.
@@ -56,6 +50,11 @@ const uploadGCP = async (filePath, fileName) => {
         // The maximum number of automatic retries attempted before returning the error.
         maxRetries: 5,
         idempotencyStrategy: IdempotencyStrategy.RetryAlways,
+    }
+});
+const uploadGCP = async (filePath, fileName) => {
+    const options = {
+        destination: fileName,
     };
 
     await storage.bucket(BUCKETNAME).upload(filePath, options);
@@ -105,7 +104,7 @@ async function deleteOldBackupFiles(prefix, delimiter) {
 (async () => {
     console.log('db-tools started');
     cron.schedule(process.env.CRON, async () => {
-        console.log('running db back up tasks');
+    console.log('running db back up tasks');
         try {
             for (const dbname of process.env.DB_NAMES.split(',')) {
                 await backup(dbname);

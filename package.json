@@ -22,11 +22,11 @@
   "dependencies": {
     "@google-cloud/storage": "^6.9.4",
     "dayjs": "^1.11.7",
-    "dot-env": "^0.0.1",
     "mysqldump": "^3.2.0",
     "node-cron": "^3.0.2"
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "request": "^2.88.2",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
